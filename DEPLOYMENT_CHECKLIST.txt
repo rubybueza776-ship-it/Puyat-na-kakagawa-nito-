@@ -1,0 +1,10 @@
+BEFORE SCHOOL USE
+[ ] School-authorized adult owns the Firebase project
+[ ] Email/Password and Anonymous sign-in enabled
+[ ] Exactly one intended admin UID configured in both config.js and firestore.rules
+[ ] Firestore rules published and tested with guest write attempts (must fail)
+[ ] Guest read succeeds after sign-in
+[ ] Admin add/edit/delete succeeds
+[ ] Test with two phones: admin adds an item; guest sees it while online
+[ ] Test reconnect after offline use
+[ ] Do not store personal/sensitive student information in inventory records
