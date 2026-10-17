@@ -1,0 +1,25 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Replace ADMIN_UID_HERE with the administrator's Firebase Authentication UID.
+    function signedIn() { return request.auth != null; }
+    function isAdmin() { return signedIn() && request.auth.uid == 'ADMIN_UID_HERE'; }
+
+    // All authenticated users (including anonymous guest sessions) may READ inventory.
+    // Only the one UID above may create, update, or delete inventory.
+    match /inventory/{itemId} {
+      allow read: if signedIn();
+      allow create, update, delete: if isAdmin();
+    }
+    match /settings/{settingId} {
+      allow read: if signedIn();
+      allow create, update, delete: if isAdmin();
+    }
+    match /activity/{activityId} {
+      allow read: if signedIn();
+      allow create: if isAdmin();
+      allow update, delete: if isAdmin();
+    }
+    // No other documents are accessible by default.
+  }
+}
